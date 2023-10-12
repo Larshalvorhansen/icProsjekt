@@ -1,0 +1,30 @@
+[aimspice]
+[description]
+281
+Inverter Subcircuit
+
+.include gpdk90nm_tt.cir
+.param lp = 0.1U
+.param wp = 1U
+.param ln = 0.1U
+.param wn = 1U
+
+vdd1 vdd 0 dc 1
+vin in 0 dc 1
+
+.subckt invert vdd vss in out:
+XMN1 out in 0 0 NMOS1V l=ln w=wn
+XMP1 out in vdd vdd PMOS1v l=lp w=wp
+
+
+
+.plot v(in) v(out)
+[dc]
+1
+vin
+0
+1
+0.01
+[ana]
+1 0
+[end]

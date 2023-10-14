@@ -1,14 +1,15 @@
 [aimspice]
 [description]
-432
+442
 D-Flip Flop 2
 
 .include AND_Gate.cir
 .include NOR_Gate.cir
+
 vdd1 VDD GND dc 1
 *PULSE Initial value Pulsed value Delay time Rise time Fall time Pulse width Period
-VCLK1 CLK GND PULSE 1 0 0S 0US 0US 100US
-VIN1 in1 GND PULSE 1 0 0S 0US 0US 150US
+VCLK1 CLK GND PULSE 1V 0V 0S 0US 0US 100US
+VIN1 in1 GND PULSE 1V 0V 0S 0US 0US 150US
 RESET in2 GND dc 0
 
 
@@ -17,8 +18,10 @@ XAND1 VDD GND in2 CLK 2 AND
 XNOR1 VDD GND 1 4 3 NOR
 XNOR1 VDD GND 2 3 4 NOR
 
+
 .plot tran V(3)
 .plot tran V(4)
+
 
 
 

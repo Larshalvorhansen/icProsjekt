@@ -1,6 +1,6 @@
 [aimspice]
 [description]
-296
+463
 AND GATE
 
 .include gpdk90nm_tt.cir
@@ -15,5 +15,16 @@ XMN1 vdd in1 1 GND NMOS1V L=LN W=WN
 XMN2 1 in2 out GND NMOS1V L=LN W=WN
 XMP1 GND in1 out vdd PMOS1V L=LP W=WP
 XMP2 GND in2 out vdd PMOS1V L=LP W=WP
+
+
+vdd1 vdd GND dc 1
+VPULSE in1 GND PULSE(1 0 0S 0NS 0NS 100NS)
+vin2 in2 GND PULSE(1 0 0S 0NS 0NS 200NS)
+
+.tran 0ns 500ns 0.01ns
+.plot tran V(out) V(in1)
+
+
+
 
 [end]

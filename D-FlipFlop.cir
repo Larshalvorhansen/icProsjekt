@@ -1,17 +1,25 @@
 [aimspice]
 [description]
-230
+370
 D-Flip Flop 1
 .include NAND_GATE.cir
 .include inverter.cir
 
 vdd1 VDD GND dc 1
-
+CLK1 CLK GND PULSE 0 1 0S 0US 50US 100US
+INP1 INP GND PULSE 0 1 0S 0US 50US 100US
 
 XINV1  VDD GND INP 2 invert
 XNAND1 VDD GND INP CLK 1 NAND
 XNAND2 VDD GND 2 CLK 3 NAND
 XNAND3 VDD GND 1 5 4 NAND
 XNAND4 VDD GND 3 4 5 NAND
+
+
+.plot tran V(4) V(CLK) V(dd1)
+.plot tran V(5)
+
+
+
 
 [end]

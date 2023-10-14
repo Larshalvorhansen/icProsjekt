@@ -1,6 +1,6 @@
 [aimspice]
 [description]
-305
+334
 TG Switch
 Vdd1 1 0 dc 0
 
@@ -23,3 +23,4 @@ Xinv 1 0 5 6 invert
 
 .plot tran V(2) 
 .plot tran V(3)
+[end]

@@ -18,8 +18,8 @@ XMN2 out in2 GND GND NMOS1V L=LN W=WN
 .ends
 
 vdd1 1 0 dc 1
-VPULSE 2 0 PULSE(0 1 0 40ns 1ns 1ns 100ns)
-vin2 3 0 PULSE(0 1 0 40ns 1ns 1ns 150ns)
+VPULSE 2 0 PULSE(0 1 0 1ns 1ns 50ns 100ns)
+vin2 3 0 PULSE(0 1 0 1ns 1ns 75ns 150ns)
 
 XNOR1 2 3 4 1 0 NOR
 .plot tran V(2) V(3) V(4)

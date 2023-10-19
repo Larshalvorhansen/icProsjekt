@@ -1,7 +1,7 @@
 [aimspice]
 [description]
-548
-AND GATE
+555
+AND GATE2
 
 .include gpdk90nm_tt.cir
 
@@ -9,12 +9,12 @@ AND GATE
 .param WP = 1U
 .param LN = 0.1U
 .param WN = 1U
-
-.subckt AND in1 in2 out vdd GND
-XMN1 vdd in1 1 GND nmos1V L=LN W=WN
-XMN2 1 in2 out GND nmos1V L=LN W=WN
-XMP1 GND in1 out vdd nmos1V L=LP W=WP
-XMP2 GND in2 out vdd nmos1V L=LP W=WP
+*d g s b
+.subckt AND in1 in2 out VDD GND
+XMN1 out in1 GND GND nmos1V L=LN W=WN
+XMN2 out in2 GND GND nmos1V L=LN W=WN
+XMP1 1 in1 VDD VDD nmos1V L=LP W=WP
+XMP2 out in2 1 1 nmos1V L=LP W=WP
 .ends
 
 *PULSE Initial value Pulsed value Delay time Rise time Fall time Pulse width Period

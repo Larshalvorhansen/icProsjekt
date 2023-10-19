@@ -7,13 +7,13 @@
                  *                                           *
                  *********************************************
 
-	Date: Thu Oct 19 14:03:28 2023
-	Circuit File: C:\Users\47915\Documents\icProsjekt\NOR_Gate.cir
+	Date: Thu Oct 19 14:06:05 2023
+	Circuit File: C:\Users\47915\Documents\icProsjekt\AND_Gate2.cir
 	Analysis: Transient
 
 **************************  Circuit Description  **************************
 
-     1:  NOR GATE
+     1:  AND GATE2
      2:  
      3:  *include gpdk90nm_tt.cir
      4:  .param  s1v_rs_ne=0.000000e+000 s1v_vsat_ne=1.120000e+005 s1v_pldd_surf=6.000000e+019   s1v_uc1_ne=3.700000e-010 s1v_u0_ne=2.000000e-002 s1v_nch_ne=5.200000e+017   s1v_rsc_ne=4.082483e-014 s1v_cgbo_ne=1.482000e-011 s1v_prt_ne=1.000000e+001   s1v_rdc_ne=4.082483e-014 s1v_vth0_ne=1.692662e-001 s1v_k2_ne=0.000000e+000   s1v_cgdo_ne=2.667600e-010 s1v_ckappa_ne=4.605336e+000 s1v_wint_ne=6.000000e-009   s1v_k1_ne=2.825346e-001 s1v_cgsl_ne=1.111500e-010 s1v_nldd_surf=3.000000e+019   s1v_js_ne=3.366667e-006 s1v_hdif_ne=1.400000e-007 s1v_rdsw_ne=3.900000e-006   s1v_jsw_ne=3.366667e-010 s1v_tox_ne=2.330000e-009 s1v_cj_ne=7.983537e-004   s1v_cjsw_ne=4.790122e-011 s1v_ldif_ne=1.000000e-008 s1v_xj_ne=2.500000e-008   s1v_rd_ne=0.000000e+000 s1v_pb_ne=9.918524e-001 s1v_cf_ne=4.594612e-011   s1v_lint_ne=1.500000e-008 s1v_cjswg_ne=1.995884e-011 s1v_rsh_ne=1.000000e+001   s1v_u0_pe=1.200000e-002 s1v_nch_pe=4.000000e+017 s1v_rsc_pe=2.886751e-014   s1v_cgbo_pe=1.392363e-011 s1v_rdc_pe=2.886751e-014 s1v_vth0_pe={-1.359511e-001}   s1v_k2_pe=0.000000e+000 s1v_cgdo_pe=2.506253e-010 s1v_ckappa_pe=1.043477e+001   s1v_wint_pe=5.000000e-009 s1v_k1_pe=2.637520e-001 s1v_cgsl_pe=1.044272e-010   s1v_js_pe=3.350000e-006 s1v_hdif_pe=1.400000e-007 s1v_rdsw_pe=7.800000e-006   s1v_jsw_pe=3.350000e-010 s1v_tox_pe=2.480000e-009 s1v_cj_pe=7.912252e-004   s1v_cjsw_pe=4.747351e-011 s1v_ldif_pe=1.000000e-008 s1v_xj_pe=2.500000e-008   s1v_rd_pe=0.000000e+000 s1v_pb_pe=1.009805e+000 s1v_cf_pe=4.527118e-011   s1v_lint_pe=1.500000e-008 s1v_cjswg_pe=1.978063e-011 s1v_rsh_pe=2.000000e+001   s1v_rs_pe=0.000000e+000 s1v_vsat_pe=1.000000e+005   gleak_scale=1.0   s1v_nat_vth0_ne=0.192662e-001 s1v_nat_k1_ne=2.825346e-002   pvt_mc=0 pu0_mc=0 pltw_mc=0
@@ -150,21 +150,27 @@
    135:  .param WP = 1U
    136:  .param LN = 0.1U
    137:  .param WN = 1U
-   138:  
-   139:  .subckt NOR in1 in2 out vdd GND
-   140:  XMP1 2 in1 vdd vdd PMOS1V L=LP W=WP
-   141:  XMP2 out in2 2 vdd PMOS1V L=LP W=WP
-   142:  XMN1 out in1 GND GND NMOS1V L=LN W=WN
-   143:  XMN2 out in2 GND GND NMOS1V L=LN W=WN
+   138:  *d g s b
+   139:  .subckt AND in1 in2 out VDD GND
+   140:  XMN1 out in1 GND GND nmos1V L=LN W=WN
+   141:  XMN2 out in2 GND GND nmos1V L=LN W=WN
+   142:  XMP1 1 in1 VDD VDD nmos1V L=LP W=WP
+   143:  XMP2 out in2 1 1 nmos1V L=LP W=WP
    144:  .ends
    145:  
-   146:  vdd1 1 0 dc 1
-   147:  VPULSE 2 0 PULSE(0 1 0 1ns 1ns 50ns 100ns)
-   148:  vin2 3 0 PULSE(0 1 0 1ns 1ns 75ns 150ns)
-   149:  
-   150:  XNOR1 2 3 4 1 0 NOR
-   151:  .plot tran V(2) V(3) V(4)
-   152:  .tran 1ns 500ns
+   146:  *PULSE Initial value Pulsed value Delay time Rise time Fall time Pulse width Period
+   147:  vdd1 1 0 dc 1
+   148:  VPULSE 2 0 PULSE(0 1 0 1ns 1ns 50ns 100ns)
+   149:  vin2 3 0 PULSE(0 1 0 1ns 1ns 75ns 150ns)
+   150:  
+   151:  XAND1 2 3 4 1 0 AND
+   152:  .plot tran V(2) V(3) V(4)
+   153:  
+   154:  
+   155:  
+   156:  
+   157:  
+   158:  .tran 1ns 500ns
 
 ***************************  Model Parameters  ****************************
 
@@ -187,12 +193,12 @@
 
 *************************  Simulation Statistics  *************************
 
-	Total number of iterations.....................: 605
-	Number of iterations for transient analysis....: 599
-	Total number of timepoints.....................: 204
-	Number of timepoints accepted..................: 204
+	Total number of iterations.....................: 600
+	Number of iterations for transient analysis....: 584
+	Total number of timepoints.....................: 200
+	Number of timepoints accepted..................: 200
 	Number of timepoints rejected..................: 0
-	Total analysis time (sec)......................: 0.059
+	Total analysis time (sec)......................: 0.06
 	Transient analysis time (sec)..................: 0.059
 	Time spent in device loading (sec).............: 0.008
 	Time spent in L-U decomposition (sec)..........: 0
@@ -203,30 +209,30 @@
 
 ***************************  Kernel Messages  *****************************
 
-Circuit: NOR GATE
+Circuit: AND GATE2
 
 Warning: premature EOF
 BSIM3 v3.3.0 Parameter Checking.
-Model = nor1:mn2:gpdk090_nmos1v_x
+Model = and1:mp2:gpdk090_nmos1v_x
 BSIM3 v3.3.0 Parameter Checking.
-Model = nor1:mn1:gpdk090_nmos1v_x
+Model = and1:mp1:gpdk090_nmos1v_x
 BSIM3 v3.3.0 Parameter Checking.
-Model = nor1:mp2:gpdk090_pmos1v_x
+Model = and1:mn2:gpdk090_nmos1v_x
 BSIM3 v3.3.0 Parameter Checking.
-Model = nor1:mp1:gpdk090_pmos1v_x
+Model = and1:mn1:gpdk090_nmos1v_x
 Warning: vin2: no DC value, transient time 0 value used
 Warning: vpulse: no DC value, transient time 0 value used
 Warning: Node 1 has less than two connections
 Warning: Node 2 has less than two connections
 Warning: Node 3 has less than two connections
 BSIM3 v3.3.0 Parameter Checking.
-Model = nor1:mn2:gpdk090_nmos1v_x
+Model = and1:mp2:gpdk090_nmos1v_x
 BSIM3 v3.3.0 Parameter Checking.
-Model = nor1:mn1:gpdk090_nmos1v_x
+Model = and1:mp1:gpdk090_nmos1v_x
 BSIM3 v3.3.0 Parameter Checking.
-Model = nor1:mp2:gpdk090_pmos1v_x
+Model = and1:mn2:gpdk090_nmos1v_x
 BSIM3 v3.3.0 Parameter Checking.
-Model = nor1:mp1:gpdk090_pmos1v_x
+Model = and1:mn1:gpdk090_nmos1v_x
 Warning: vin2: no DC value, transient time 0 value used
 Warning: vpulse: no DC value, transient time 0 value used
 

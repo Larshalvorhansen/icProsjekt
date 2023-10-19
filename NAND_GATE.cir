@@ -1,6 +1,6 @@
 [aimspice]
 [description]
-296
+302
 NAND GATE
 
 .include gpdk90nm_tt.cir
@@ -10,9 +10,10 @@ NAND GATE
 .param ln = 0.1U
 .param wn = 1U
 
-.subckt NAND vdd GND in1 in2 out:
+.subckt NAND in1 in2 out vdd GND
 XMP1 out in1 vdd vdd PMOS1V L=LP W=WP
 XMP2 out in2 vdd vdd PMOS1V L=LP W=WP
 XMN1 out in1 3 GND NMOS1V L=LN W=WN
 XMN2 3 in2 GND GND NMOS1V L=LN W=WN
+.ends
 [end]

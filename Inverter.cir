@@ -1,6 +1,6 @@
 [aimspice]
 [description]
-237
+242
 Inverter Subcircuit
 
 .include gpdk90nm_tt.cir
@@ -11,10 +11,10 @@ Inverter Subcircuit
 
 
 
-.subckt invert vdd vss in out:
+.subckt invert in out vdd vss 
 XMN1 out in vss vss NMOS1V l=ln w=wn
 XMP1 out in vdd vdd PMOS1V l=lp w=wp
-
+.ends
 
 
 

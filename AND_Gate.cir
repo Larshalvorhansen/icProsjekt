@@ -1,30 +1,39 @@
 [aimspice]
 [description]
-463
+461
 AND GATE
 
 .include gpdk90nm_tt.cir
 
-.param lp = 0.1U
-.param wp = 1U
-.param ln = 0.1U
-.param wn = 1U
+.param LP = 0.1U
+.param WP = 1U
+.param LN = 0.1U
+.param WN = 1U
 
-.subckt AND vdd GND in1 in2 out:
-XMN1 vdd in1 1 GND NMOS1V L=LN W=WN
-XMN2 1 in2 out GND NMOS1V L=LN W=WN
-XMP1 GND in1 out vdd PMOS1V L=LP W=WP
-XMP2 GND in2 out vdd PMOS1V L=LP W=WP
+.subckt AND in1 in2 out vdd GND
+XMN1 vdd in1 1 GND nmos1V L=LN W=WN
+XMN2 1 in2 out GND nmos1V L=LN W=WN
+XMP1 GND in1 out vdd nmos1V L=LP W=WP
+XMP2 GND in2 out vdd nmos1V L=LP W=WP
+.ends
 
+vdd1 1 0 dc 1
+VPULSE 2 0 PULSE(0 1 0 1ns 1ns 1ns 100ns)
+vin2 3 0 PULSE(0 1 0 1ns 1ns 1ns 150ns)
 
-vdd1 vdd GND dc 1
-VPULSE in1 GND PULSE(1 0 0S 0NS 0NS 100NS)
-vin2 in2 GND PULSE(1 0 0S 0NS 0NS 200NS)
-
-.tran 0ns 500ns 0.01ns
-.plot tran V(out) V(in1)
-
-
+XAND1 2 3 4 1 0 AND
+.plot tran V(4) V(3) V(2)
 
 
+
+
+
+[tran]
+1ns
+500ns
+X
+X
+0
+[ana]
+4 0
 [end]

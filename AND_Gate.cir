@@ -1,13 +1,13 @@
 [aimspice]
 [description]
-548
+546
 AND GATE
 
 .include gpdk90nm_tt.cir
 
-.param LP = 0.1U
+.param LP = 1U
 .param WP = 1U
-.param LN = 0.1U
+.param LN = 1U
 .param WN = 1U
 
 .subckt AND in1 in2 out vdd GND
@@ -17,12 +17,13 @@ XMP1 GND in1 out vdd nmos1V L=LP W=WP
 XMP2 GND in2 out vdd nmos1V L=LP W=WP
 .ends
 
+XAND1 2 3 4 1 0 AND
+
 *PULSE Initial value Pulsed value Delay time Rise time Fall time Pulse width Period
 vdd1 1 0 dc 1
-VPULSE 2 0 PULSE(0 1 0 1ns 1ns 50ns 100ns)
-vin2 3 0 PULSE(0 1 0 1ns 1ns 75ns 150ns)
+Vin1 2 0 PULSE(0 1 0 1ns 1ns 100ns 150ns)
+vin2 3 0 PULSE(0 1 0 1ns 1ns 100ns 200ns)
 
-XAND1 2 3 4 1 0 AND
 .plot tran V(2) V(3) V(4)
 
 

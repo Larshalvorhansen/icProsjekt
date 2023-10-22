@@ -7,7 +7,7 @@
                  *                                           *
                  *********************************************
 
-	Date: Thu Oct 19 14:03:28 2023
+	Date: Sun Oct 22 18:12:58 2023
 	Circuit File: C:\Users\47915\Documents\icProsjekt\NOR_Gate.cir
 	Analysis: Transient
 
@@ -159,8 +159,8 @@
    144:  .ends
    145:  
    146:  vdd1 1 0 dc 1
-   147:  VPULSE 2 0 PULSE(0 1 0 1ns 1ns 50ns 100ns)
-   148:  vin2 3 0 PULSE(0 1 0 1ns 1ns 75ns 150ns)
+   147:  VPULSE 2 0 PULSE(0 1 0 10ns 1ns 50ns 100ns)
+   148:  vin2 3 0 PULSE(0 1 0 10ns 1ns 50ns 150ns)
    149:  
    150:  XNOR1 2 3 4 1 0 NOR
    151:  .plot tran V(2) V(3) V(4)
@@ -187,14 +187,14 @@
 
 *************************  Simulation Statistics  *************************
 
-	Total number of iterations.....................: 605
-	Number of iterations for transient analysis....: 599
-	Total number of timepoints.....................: 204
-	Number of timepoints accepted..................: 204
-	Number of timepoints rejected..................: 0
-	Total analysis time (sec)......................: 0.059
-	Transient analysis time (sec)..................: 0.059
-	Time spent in device loading (sec).............: 0.008
+	Total number of iterations.....................: 470
+	Number of iterations for transient analysis....: 464
+	Total number of timepoints.....................: 158
+	Number of timepoints accepted..................: 157
+	Number of timepoints rejected..................: 1
+	Total analysis time (sec)......................: 0.1
+	Transient analysis time (sec)..................: 0.095
+	Time spent in device loading (sec).............: 0.007
 	Time spent in L-U decomposition (sec)..........: 0
 	Time spent in matrix reordering (sec)..........: 0
 	Time spent in matrix solving (sec).............: 0

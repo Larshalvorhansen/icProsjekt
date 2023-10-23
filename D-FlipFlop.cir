@@ -1,25 +1,50 @@
 [aimspice]
 [description]
-370
+645
 D-Flip Flop 1
-.include NAND_GATE.cir
-.include inverter.cir
-
-vdd1 VDD GND dc 1
-CLK1 CLK GND PULSE 0 1 0S 0US 50US 100US
-INP1 INP GND PULSE 0 1 0S 0US 50US 100US
-
-XINV1  VDD GND INP 2 invert
-XNAND1 VDD GND INP CLK 1 NAND
-XNAND2 VDD GND 2 CLK 3 NAND
-XNAND3 VDD GND 1 5 4 NAND
-XNAND4 VDD GND 3 4 5 NAND
 
 
-.plot tran V(4) V(CLK) V(dd1)
+
+.include gpdk90nm_tt.cir
+
+.param LP = 1U
+.param WP = 1U
+.param LN = 1U
+.param WN = 1U
+
+.subckt NAND in1 in2 out vdd GND
+XMP1 out in1 vdd vdd PMOS1V L=LP W=WP
+XMP2 out in2 vdd vdd PMOS1V L=LP W=WP
+XMN1 out in1 3 GND NMOS1V L=LN W=WN
+XMN2 3 in2 GND GND NMOS1V L=LN W=WN
+.ends
+
+
+vdd1 1 0 dc 1
+VCLK clk 0 PULSE(0 1 0 1ns 1ns 50ns 100ns)
+VIN in 0 PULSE(0 1 0 1ns 1ns 75ns 150ns)
+
+
+XMN1 2 in 0 1 nmos1v L=LN W=WN
+XMP1 2 in 1 0 pmos1v L=LP W=WP
+XNAND1 in clk 3 1 0 NAND
+XNAND2 2 clk 4 1 0 NAND
+XNAND3 3 6 5 1 0 NAND
+XNAND4 4 5 6 1 0 NAND
+
+.plot tran V(6)
+.plot tran V(clk) V(in)
 .plot tran V(5)
 
 
 
 
+[tran]
+1ns
+500ns
+X
+X
+0
+[ana]
+4 0
 [end]

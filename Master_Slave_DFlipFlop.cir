@@ -1,0 +1,57 @@
+[aimspice]
+[description]
+975
+Master Slave D-Flip Flop
+
+.include gpdk90nm_tt.cir
+
+.param LP = 1U
+.param WP = 4U
+.param LN = 1U
+.param WN = 1U
+
+.subckt NAND in1 in2 out vdd GND
+XMP1 out in1 vdd vdd PMOS1V L=LP W=WP
+XMP2 out in2 vdd vdd PMOS1V L=LP W=WP
+XMN1 out in1 3 GND NMOS1V L=LN W=WN
+XMN2 3 in2 GND GND NMOS1V L=LN W=WN
+.ends
+
+
+vdd1 1 0 dc 1
+VCLK clk 0 PULSE(1 0 0 1ns 1ns 50ns 100ns)
+VIN in 0 PULSE(0 1 0 1ns 1ns 125ns 200ns)
+
+*Inverts the clock signal
+*drain gate source bulk
+XMN1 clk2 clk 0 1 nmos1v L=LN W=WN 
+XMP1 clk2 clk 1 0 pmos1v L=LP W=WP
+*Inverts the inverted clock signal
+XMN2 clk3 clk2 0 1 nmos1v L=LN W=WN
+XMP2 clk3 clk2 1 0 pmos1v L=LP W=WP
+
+*8 is Q and 9 is Q'
+*in1 in2 out vdd gnd
+XNAND1 in clk2 2 1 0 NAND
+XNAND2 2 clk2 4 1 0 NAND
+XNAND3 2 5 3 1 0 NAND
+XNAND4 3 4 5 1 0 NAND
+XNAND5 3 clk3 6 1 0 NAND
+XNAND6 6 clk3 7 1 0 NAND
+XNAND7 6 9 8 1 0 NAND
+XNAND8 7 8 9 1 0 NAND
+
+.plot tran V(9)
+.plot tran V(clk) 
+.plot tran V(in) 
+.plot tran V(8)
+
+[tran]
+1ns
+500ns
+X
+X
+0
+[ana]
+4 0
+[end]

@@ -3,7 +3,7 @@
 334
 TG Switch
 Vdd1 1 0 dc 0
-
+*vdd vdd gnd ac/dc ?
 
 .include gpdk90nm_tt.cir
 .include Inverter.cir
@@ -18,9 +18,10 @@ VPULSE 2 0 PULSE 0 1 0S 0US 50US 100US
 *d g s b
 XMP1 1 5 2 1 PMOS1V L=LP W=WP
 XMN1 2 6 1 0 NMOS1V L=LN W=WN
+
 Xinv 1 0 5 6 invert
 *vdd vss in out
 
-.plot tran V(2) 
+.plot tran V(2)
 .plot tran V(3)
 [end]

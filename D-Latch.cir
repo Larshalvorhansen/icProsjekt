@@ -1,17 +1,17 @@
 [aimspice]
 [description]
-645
-D-Flip Flop 1
-
-
+810
+D-Latch
 
 .include gpdk90nm_tt.cir
 
+*Defining parameters for transistor sizes
 .param LP = 1U
 .param WP = 1U
 .param LN = 1U
 .param WN = 1U
 
+*Subcircuit for the NAND gate
 .subckt NAND in1 in2 out vdd GND
 XMP1 out in1 vdd vdd PMOS1V L=LP W=WP
 XMP2 out in2 vdd vdd PMOS1V L=LP W=WP
@@ -19,19 +19,24 @@ XMN1 out in1 3 GND NMOS1V L=LN W=WN
 XMN2 3 in2 GND GND NMOS1V L=LN W=WN
 .ends
 
-
-vdd1 1 0 dc 1
-VCLK clk 0 PULSE(0 1 0 1ns 1ns 50ns 100ns)
-VIN in 0 PULSE(0 1 0 1ns 1ns 75ns 150ns)
-
-
+*Inverter
+*I/O: drain gate source bulk
 XMN1 2 in 0 1 nmos1v L=LN W=WN
 XMP1 2 in 1 0 pmos1v L=LP W=WP
+
+*Node 5 is Q and node 6 is Q'
+*I/O: in1 in2 out vdd gnd
 XNAND1 in clk 3 1 0 NAND
 XNAND2 2 clk 4 1 0 NAND
 XNAND3 3 6 5 1 0 NAND
 XNAND4 4 5 6 1 0 NAND
 
+
+
+
+vdd1 1 0 dc 1
+VCLK clk 0 PULSE(0 1 0 1ns 1ns 50ns 100ns)
+VIN in 0 PULSE(0 1 0 1ns 1ns 75ns 150ns)
 .plot tran V(6)
 .plot tran V(clk) V(in)
 .plot tran V(5)

@@ -1,15 +1,13 @@
 [aimspice]
 [description]
-242
+234
 Inverter Subcircuit
 
 .include gpdk90nm_tt.cir
-.param lp = 0.1U
+.param lp = 1U
 .param wp = 1U
-.param ln = 0.1U
+.param ln = 1U
 .param wn = 1U
-
-
 
 .subckt invert in out vdd vss 
 XMN1 out in vss vss nmos1v L=ln W=wn

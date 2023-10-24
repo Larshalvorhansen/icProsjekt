@@ -5,10 +5,10 @@ NAND GATE
 
 .include gpdk90nm_tt.cir
 
-.param lp = 0.1U
-.param wp = 1U
-.param ln = 0.1U
-.param wn = 1U
+.param LP = 1U
+.param WP = 1U
+.param LN = 1U
+.param WN = 1U
 
 .subckt NAND in1 in2 out vdd GND
 XMP1 out in1 vdd vdd PMOS1V L=LP W=WP
@@ -16,4 +16,14 @@ XMP2 out in2 vdd vdd PMOS1V L=LP W=WP
 XMN1 out in1 3 GND NMOS1V L=LN W=WN
 XMN2 3 in2 GND GND NMOS1V L=LN W=WN
 .ends
+
+
+[tran]
+1
+500ns
+X
+X
+0
+[ana]
+4 0
 [end]
